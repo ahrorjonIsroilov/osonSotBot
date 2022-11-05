@@ -1,18 +1,16 @@
 package osonsot.command;
 
 import org.telegram.telegrambots.meta.api.objects.Update;
-import osonsot.config.BotConfig;
 
-public class Start extends Command {
-    private final String name = BotConfig.COMMAND_INIT + "start";
+public class Default extends Command {
 
     @Override
     public void handle(Update update) {
-        sendMessage("Welcome");
+
     }
 
     @Override
     public String getName() {
-        return name;
+        return "default";
     }
 }

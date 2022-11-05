@@ -3,37 +3,26 @@ package osonsot.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
-import org.telegram.telegrambots.meta.api.methods.updates.SetWebhook;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
-import osonsot.BotConfig;
-import osonsot.handler.Bot;
+import osonsot.base.Bot;
 
 @Configuration
 public class BotExecutor {
+
     @Bean
-    public void run() throws InterruptedException {
+    public void main() throws InterruptedException {
+        TelegramBotsApi api;
         try {
-            createTelegramApi();
-            System.out.println("Connected to telegram");
+            api = new TelegramBotsApi(DefaultBotSession.class);
+            api.registerBot(Bot.getInstance());
+            System.out.println("connected");
         } catch (TelegramApiException e) {
-            System.out.println("Network problems");
-            e.printStackTrace();
-            Thread.sleep(150000);
-            run();
+            System.out.println("Not connected");
+            System.out.println(e.getMessage());
+            Thread.sleep(10000);
+            main();
         }
-    }
 
-    private void createTelegramApi() throws TelegramApiException {
-        TelegramBotsApi telegramBotsApi;
-        if (BotConfig.USE_WEBHOOK) {
-            telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
-            telegramBotsApi.registerBot(new Bot()/*, new SetWebhook("https://66f6-89-146-124-119.eu.ngrok.io")*/);
-        }
-    }
-
-    @Bean
-    SetWebhook setWebhook() {
-        return new SetWebhook();
     }
 }

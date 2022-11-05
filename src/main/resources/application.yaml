@@ -20,10 +20,3 @@ spring:
 logging:
   file:
     name: logback
-telegram:
-  api-url: "https://api.telegram.org/"
-  webhook-path: "https://057e-89-146-124-119.eu.ngrok.io"
-  bot-token: 5477032442:AAECQriDE71D-kRzgFAaqrae1GMeyP7mEMU
-  bot-name: osonsot_bot
-server:
-  port: 90
