@@ -5,8 +5,8 @@ spring:
     jdbc:
       initialize-schema: always
   datasource:
-    password: 123
-    username: postgres
+    password: oson_sot
+    username: oson_sot
     url: jdbc:postgresql://localhost:5432/oson_sot
     driver-class-name: org.postgresql.Driver
   jpa:
