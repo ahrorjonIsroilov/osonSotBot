@@ -1,16 +1,13 @@
-package osonsot.base;
+package osonsot.command;
 
-import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import osonsot.handler.Bot;
+import osonsot.base.Bot;
 
-@Component
+
 public abstract class Command {
-
-
-    private Bot bot;
+    private final Bot bot = Bot.getInstance();
     private Long chatId;
 
     public abstract void handle(Update update);

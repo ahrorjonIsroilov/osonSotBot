@@ -10,19 +10,14 @@ import osonsot.config.BotExecutor;
 @RequiredArgsConstructor
 public class OsonSotApplication implements CommandLineRunner {
 
-    private final BotExecutor botExecutor;
+    private final BotExecutor executor;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         SpringApplication.run(OsonSotApplication.class, args);
     }
 
     @Override
     public void run(String... args) throws Exception {
-        botExecutor.run();
-        migrate();
-    }
-
-    private void migrate() {
-
+        executor.main();
     }
 }
