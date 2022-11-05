@@ -6,6 +6,7 @@ import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 import osonsot.base.Bot;
+import osonsot.command.Command;
 
 @Configuration
 public class BotExecutor {
@@ -15,7 +16,9 @@ public class BotExecutor {
         TelegramBotsApi api;
         try {
             api = new TelegramBotsApi(DefaultBotSession.class);
-            api.registerBot(Bot.getInstance());
+            Bot bot = new Bot();
+            Command.setBot(bot);
+            api.registerBot(bot);
             System.out.println("connected");
         } catch (TelegramApiException e) {
             System.out.println("Not connected");
@@ -23,6 +26,5 @@ public class BotExecutor {
             Thread.sleep(10000);
             main();
         }
-
     }
 }

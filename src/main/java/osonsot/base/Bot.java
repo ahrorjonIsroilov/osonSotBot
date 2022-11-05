@@ -1,20 +1,27 @@
 package osonsot.base;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import osonsot.command.Command;
+import osonsot.command.Hello;
+import osonsot.command.Start;
 import osonsot.config.BotConfig;
-import osonsot.handler.UpdateHandler;
+
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 
 @Component
 public class Bot extends TelegramLongPollingBot {
 
-    @Autowired
-    public UpdateHandler handler;
-    private static final Bot instance = new Bot();
-
+    public Bot() {
+        commands = new HashSet<>();
+        commands.add(new Start());
+        commands.add(new Hello());
+    }
     @Override
     public String getBotUsername() {
         return BotConfig.BOT_USERNAME;
@@ -25,13 +32,14 @@ public class Bot extends TelegramLongPollingBot {
         return BotConfig.BOT_TOKEN;
     }
 
+    private final Set<Command> commands;
+
     @Override
     public void onUpdateReceived(Update update) {
-        handler.handle(update);
+        if (update.getMessage().hasText()) {
+            Optional<Command> command = commands.stream().filter(o -> o.getName().equals(update.getMessage().getText())).findFirst();
+            command.ifPresent(value -> value.handleCommand(update));
+        }
     }
 
-    public static Bot getInstance() {
-        if (instance != null) return instance;
-        else return new Bot();
-    }
 }
