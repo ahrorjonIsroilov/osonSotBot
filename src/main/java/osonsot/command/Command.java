@@ -7,8 +7,9 @@ import osonsot.base.Bot;
 
 
 public abstract class Command {
-    private final Bot bot = Bot.getInstance();
     private Long chatId;
+
+    private static Bot botStatic;
 
     public abstract void handle(Update update);
 
@@ -33,9 +34,13 @@ public abstract class Command {
         message.setChatId(chatId);
         message.setText(text);
         try {
-            bot.execute(message);
-        } catch (TelegramApiException e) {
-            e.printStackTrace();
+            botStatic.execute(message);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
+    }
+
+    public static void setBot(Bot bot) {
+        botStatic = bot;
     }
 }
