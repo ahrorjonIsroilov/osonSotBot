@@ -5,6 +5,7 @@ import lombok.experimental.FieldDefaults;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import osonsot.base.BaseEntity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -22,7 +23,9 @@ public class Auditable implements BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true)
     protected Long id;
+
     protected boolean deleted;
+
     @CreatedDate
     @CreationTimestamp
     @Column(name = "created_at", columnDefinition = "timestamp default now()")

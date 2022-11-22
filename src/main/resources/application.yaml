@@ -1,12 +1,14 @@
 spring:
+  main:
+    allow-bean-definition-overriding: true
   batch:
     job:
       enabled: false
     jdbc:
       initialize-schema: always
   datasource:
-    password: oson_sot
-    username: oson_sot
+    password: 123
+    username: postgres
     url: jdbc:postgresql://localhost:5432/oson_sot
     driver-class-name: org.postgresql.Driver
   jpa:

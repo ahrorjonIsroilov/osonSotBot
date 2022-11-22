@@ -9,22 +9,22 @@ import osonsot.mainbot.handler.UpdateHandler;
 
 @Component
 @RequiredArgsConstructor
-public class Bot extends TelegramLongPollingBot {
+public class ChatBot extends TelegramLongPollingBot {
 
   private final UpdateHandler handler;
 
   @Override
   public String getBotUsername() {
-    return BotConfig.BOT_USERNAME;
+    return BotConfig.CHAT_BOT_USERNAME;
   }
 
   @Override
   public String getBotToken() {
-    return BotConfig.BOT_TOKEN;
+    return BotConfig.CHAT_BOT_TOKEN;
   }
 
   @Override
   public void onUpdateReceived(Update update) {
-    handler.handle(update);
+    System.out.println(update);
   }
 }
